@@ -1,0 +1,8 @@
+# DECLARE FILES THAT WILL ALWAYS HAVE LF LINE ENDINGS ON CHECKOUT.
+META-INF/** text eol=lf
+*.prop text eol=lf
+*.sh text eol=lf
+*.md text eol=lf
+
+# DENOTE ALL FILES THAT ARE TRULY BINARY AND SHOULD NOT BE MODIFIED.
+META-INF/** binary
