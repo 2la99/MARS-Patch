@@ -29,7 +29,7 @@ delete_recursive("/data/data");
 set_progress(0.10);
 #########################################################
 ui_print(" ");
-ui_print("          EXTRACTING CONTENT");
+ui_print("          EXTRACTING TOOLS");
 set_progress(0.15);
 #########################################################
 run_program("/sbin/sleep","1");
@@ -62,6 +62,8 @@ ui_print("          ANDROID OS PREPERATION");
 set_progress(0.29);
 #########################################################
 run_program("/sbin/sleep","1");
+delete_recursive("/cust");
+delete_recursive("/OP");
 delete_recursive("/system/app/AmazeFileManager");
 delete_recursive("/system/app/CMFileManager");
 delete_recursive("/system/app/Calendar");
@@ -184,21 +186,24 @@ run_program("/sbin/sleep","5");
 unmount("/system");
 #########################################################
 ui_print(" ");
-ui_print("          RUNNING TOOLS...");
+ui_print("          RUNNING TOOLS");
 set_progress(0.60);
 #########################################################
 set_progress(0.70);
 ui_print(" ");
+ui_print("          RUNNING PATCH");
 run_program("/sbin/sleep","1");
 run_program("/sbin/busybox","unzip","/tmp/patch/patch.zip","META-INF/com/google/android/*","-d","/tmp/patch");
 run_program("/sbin/busybox","sh","/tmp/patch/META-INF/com/google/android/update-binary","dummy","1","/tmp/patch/patch.zip");
 set_progress(0.80);
 ui_print(" ");
+ui_print("          RUNNING GAPPS");
 run_program("/sbin/sleep","2");
 run_program("/sbin/busybox","unzip","/tmp/gapps/gapps.zip","META-INF/com/google/android/*","-d","/tmp/gapps");
 run_program("/sbin/busybox","sh","/tmp/gapps/META-INF/com/google/android/update-binary","dummy","1","/tmp/gapps/gapps.zip");
 set_progress(0.90);
 ui_print(" ");
+ui_print("          RUNNING MAGISK");
 run_program("/sbin/sleep","2");
 run_program("/sbin/busybox","unzip","/tmp/magisk/magisk.zip","META-INF/com/google/android/*","-d","/tmp/magisk");
 run_program("/sbin/busybox","sh","/tmp/magisk/META-INF/com/google/android/update-binary","dummy","1","/tmp/magisk/magisk.zip");
