@@ -1,7 +1,7 @@
 show_progress(1.00,5);
 set_progress(0.00);
 ui_print(" ");
-ui_print("          INITIATING MARS");
+ui_print("      --- INITIATING MARS ---");
 ui_print(" ");
 run_program("/sbin/sync");
 run_program("/sbin/sleep","1");
