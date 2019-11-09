@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<config>
-    <hidden-api-whitelisted-app package="com.sonyericsson.android.addoncamera.artfilter"/>
-    <hidden-api-whitelisted-app package="com.sonyericsson.android.camera"/>
-    <hidden-api-whitelisted-app package="com.sonymobile.android.dialer"/>
-    <hidden-api-whitelisted-app package="com.sonymobile.launcher"/>
-</config>
