@@ -15,7 +15,7 @@ ui_print() { echo "$1"; }
 
 require_new_magisk() {
   ui_print "***********************************"
-  ui_print " Please install the latest Magisk! "
+  ui_print "*PLEASE INSTALL THE LATEST MAGISK!*"
   ui_print "***********************************"
   exit 1
 }
@@ -92,9 +92,9 @@ print_modname
 
 # Anything after this point won't run
 
-ui_print "******************************"
-ui_print "Powered by Magisk (@topjohnwu)"
-ui_print "******************************"
+ui_print "********************************"
+ui_print "*POWERED BY MAGISK (@TOPJOHNWU)*"
+ui_print "********************************"
 
 ##########################################################################################
 # Install
@@ -146,7 +146,7 @@ for TARGET in $REPLACE; do
   mktouch $MODPATH$TARGET/.replace
 done
 
-ui_print "- Setting permissions"
+ui_print "- SETTING PERMISSIONS"
 set_permissions
 
 ##########################################################################################
@@ -158,5 +158,5 @@ imageless_magisk || unmount_magisk_img
 $BOOTMODE || recovery_cleanup
 rm -rf $TMPDIR $MOUNTPATH
 
-ui_print "- Done"
+ui_print "- DONE"
 exit 0

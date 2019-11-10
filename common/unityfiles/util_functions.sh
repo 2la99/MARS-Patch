@@ -106,7 +106,7 @@ recovery_cleanup() {
   [ -z $OLD_LD_LIB ] || export LD_LIBRARY_PATH=$OLD_LD_LIB
   [ -z $OLD_LD_PRE ] || export LD_PRELOAD=$OLD_LD_PRE
   [ -z $OLD_LD_CFG ] || export LD_CONFIG_FILE=$OLD_LD_CFG
-  ui_print "- Unmounting partitions"
+  ui_print "- UNMOUNTING PARTITIONS"
   [ "$supersuimg" -o -d /su ] && umount /su 2>/dev/null
   umount -l /system_root 2>/dev/null
   umount -l /system 2>/dev/null
@@ -148,13 +148,13 @@ cleanup() {
     imageless_magisk || unmount_magisk_img
     ui_print " "
     ui_print "    *******************************************"
-    ui_print "    *      Powered by Magisk (@topjohnwu)     *"
+    ui_print "    *      POWERED BY MAGISK (@TOPJOHNWU)     *"
     ui_print "    *******************************************"
   fi
   $BOOTMODE || recovery_cleanup
   ui_print " "
   ui_print "    *******************************************"
-  ui_print "    *    Unity by ahrion & zackptg5 @ XDA     *"
+  ui_print "    *    UNITY BY AHRION & ZACKPTG5 @ XDA     *"
   ui_print "    *******************************************"
   ui_print " "
   $DEBUG && debug_log
@@ -205,7 +205,7 @@ mount_partitions() {
     SLOT=`grep_cmdline androidboot.slot`
     [ -z $SLOT ] || SLOT=_${SLOT}
   fi
-  [ -z $SLOT ] || ui_print "- Current boot slot: $SLOT"
+  [ -z $SLOT ] || ui_print "- CURRENT BOOT SLOT: $SLOT"
 
   mount_part system
   if [ -f /system/init.rc ]; then
@@ -218,7 +218,7 @@ mount_partitions() {
     grep -qE '/dev/root|/system_root' /proc/mounts && SYSTEM_ROOT=true || SYSTEM_ROOT=false
   fi
   [ -L /system/vendor ] && mount_part vendor
-  $SYSTEM_ROOT && ui_print "- Device is system-as-root"
+  $SYSTEM_ROOT && ui_print "- DEVICE IS SYSTEM-AS-ROOT"
 }
 
 api_level_arch_detect() {
@@ -240,7 +240,7 @@ supersuimg_mount() {
   supersuimg=$(ls /cache/su.img /data/su.img 2>/dev/null)
   if [ "$supersuimg" ]; then
     if ! is_mounted /su; then
-      ui_print "- Mounting /su"
+      ui_print "- MOUNTING /su"
       [ -d /su ] || mkdir /su 2>/dev/null
       mount -t ext4 -o rw,noatime $supersuimg /su 2>/dev/null
       for i in 0 1 2 3 4 5 6 7; do
@@ -316,7 +316,7 @@ set_vars() {
       PROP=$NVBASE/$MODID-props
     fi
   fi
-  ui_print "- $ROOTTYPE detected"
+  ui_print "- $ROOTTYPE DETECTED"
 }
 
 #################
@@ -360,9 +360,9 @@ run_addons() {
     esac
   done
   if [ "$(ls -A $TMPDIR/addon/*/$NAME.sh 2>/dev/null)" ]; then
-    [ -z $PNAME ] || { ui_print " "; ui_print "- Running $PNAME Addons -"; }
+    [ -z $PNAME ] || { ui_print " "; ui_print "- RUNNING $PNAME ADDONS -"; }
     for i in $TMPDIR/addon/*/$NAME.sh; do
-      ui_print "  Running $(echo $i | sed -r "s|$TMPDIR/addon/(.*)/$NAME.sh|\1|")..."
+      ui_print "  RUNNING $(echo $i | sed -r "s|$TMPDIR/addon/(.*)/$NAME.sh|\1|")..."
       . $i
     done
     [ -z $PNAME ] || { ui_print " "; ui_print "- `echo $PNAME`ing (cont) -"; }
@@ -490,7 +490,7 @@ center_and_print() {
 #######
 
 unity_install() {
-  ui_print "- Installing"
+  ui_print "- INSTALLING"
 
   # Preinstall Addons
   run_addons -h
@@ -512,7 +512,7 @@ unity_install() {
       check_filesystem $IMG $MODULEROOT
       if [ $reqSizeM -gt $curFreeM ]; then
         newSizeM=$(((curSizeM + reqSizeM - curFreeM) / 32 * 32 + 64))
-        ui_print "   Resizing $IMG to ${newSizeM}M"
+        ui_print "   RESIZING $IMG TO ${newSizeM}M"
         $MAGISKBIN/magisk imgtool umount $MODULEROOT $MAGISKLOOP
         $MAGISKBIN/magisk imgtool resize $IMG $newSizeM >&2
         mount_snippet
@@ -525,7 +525,7 @@ unity_install() {
     [ -f $i ] && sed -i -e "/^#/d" -e "/^ *$/d" $i
   done
   
-  ui_print "   Installing scripts and files for $ARCH SDK $API device..."
+  ui_print "   INSTALLING SCRIPTS AND FILES FOR $ARCH SDK $API DEVICE..."
 
   # Custom uninstaller
   $MAGISK && [ -f $TMPDIR/uninstall.sh ] && install_script $TMPDIR/uninstall.sh $MODPATH/uninstall.sh
@@ -570,7 +570,7 @@ unity_install() {
   cp_ch -r $TMPDIR/system $UNITY/system
   # Install rom backup script
   if [ "$INFO" == "/system/addon.d/$MODID-files" ]; then
-    ui_print "   Installing addon.d backup script..."
+    ui_print "   INSTALLING ADDON.D BACKUP SCRIPT..."
     sed -i "s/MODID=.*/MODID=$MODID/" $TMPDIR/common/unityfiles/addon.sh
     cp_ch -n $TMPDIR/common/unityfiles/addon.sh $UNITY/system/addon.d/98-$MODID-unity.sh 0755
   fi
@@ -593,8 +593,8 @@ unity_install() {
     $BOOTMODE && { rm -f $MOUNTEDROOT/$MODID/remove; mktouch $MOUNTEDROOT/$MODID/update; cp_ch -n $TMPDIR/module.prop $MOUNTEDROOT/$MODID/module.prop; }
   elif [ "$NVBASE" == "/system/etc/init.d" ] && [ "$(ls -A $NVBASE/$MODID* 2>/dev/null)" ]; then
     ui_print " "
-    ui_print "   ! This root method has no boot script support !"
-    ui_print "   ! You will need to add init.d support !"
+    ui_print "   ! THIS ROOT METHOD HAS NO BOOT SCRIPT SUPPORT !"
+    ui_print "   ! YOU WILL NEED TO ADD INIT.D SUPPORT !"
   fi
 
   # Add blank line to end of all prop/script files if not already present
@@ -607,14 +607,14 @@ unity_install() {
 
   # Set permissions
   ui_print " "
-  ui_print "- Setting Permissions"
+  ui_print "- SETTING PERMISSIONS"
   $MAGISK && set_perm_recursive $MODPATH 0 0 0755 0644
   set_permissions
 }
 
 unity_uninstall() {
   ui_print " "
-  ui_print "- Uninstalling"
+  ui_print "- UNINSTALLING"
 
   # Uninstall Addons
   run_addons -u
@@ -654,7 +654,7 @@ unity_uninstall() {
   run_addons -v
 
   ui_print " "
-  ui_print "- Completing uninstall -"
+  ui_print "- COMPLETING UNINSTALL"
 }
 
 unity_upgrade() {
@@ -665,7 +665,7 @@ unity_upgrade() {
   fi
   [ -f "$TMPDIR/common/unity_upgrade.sh" ] && . $TMPDIR/common/unity_upgrade.sh
   unity_uninstall
-  [ "$1" == "-s" ] && { INFO="$MODPATH/$MODID-files"; ui_print "  ! Running upgrade..."; }
+  [ "$1" == "-s" ] && { INFO="$MODPATH/$MODID-files"; ui_print "  ! RUNNING UPGRADE..."; }
   unity_install
 }
 
@@ -681,7 +681,7 @@ comp_check() {
   else
     MAGISK=true
     [ $MAGISK_VER_CODE -lt 18000 ] && require_new_magisk
-    $SYSOVER && $BOOTMODE && { ui_print "   ! Magisk manager isn't supported!"; abort "   ! Install in recovery !"; }
+    $SYSOVER && $BOOTMODE && { ui_print "   ! MAGISK MANAGER ISN'T SUPPORTED!"; abort "   ! INSTALL IN RECOVERY !"; }
     $SYSOVER && { mount -o rw,remount /system; [ -L /system/vendor ] && mount -o rw,remount /vendor; }
   fi
 }
@@ -698,12 +698,12 @@ unity_main() {
   #Debug
   if $DEBUG; then
     ui_print " "
-    ui_print "- Debug mode"
+    ui_print "- DEBUG MODE"
     if $BOOTMODE; then
-      ui_print "  Debug log will be written to: /storage/emulated/0/$MODID-debug.log"
+      ui_print "  DEBUG LOG WILL BE WRITTEN TO: /storage/emulated/0/$MODID-debug.log"
       exec 2>/storage/emulated/0/$MODID-debug.log
     else
-      ui_print "  Debug log will be written to: /data/media/0/$MODID-debug.log"
+      ui_print "  DEBUG LOG WILL BE WRITTEN TO: /data/media/0/$MODID-debug.log"
       exec 2>/data/media/0/$MODID-debug.log
     fi
     set -x
@@ -719,16 +719,16 @@ unity_main() {
   # Determine mod installation status
   ui_print " "
   if $MAGISK && ! $SYSOVER && [ -f "/system/addon.d/$MODID-files" -o -f "/system/etc/$MODID-files" ]; then
-    ui_print "  ! Previous system override install detected!"
-    ui_print "  ! Removing...!"
-    $BOOTMODE && { ui_print "  ! Magisk manager isn't supported!"; abort "   ! Flash in TWRP !"; }
+    ui_print "  ! PREVIOUS SYSTEM OVERRIDE INSTALL DETECTED!"
+    ui_print "  ! REMOVING...!"
+    $BOOTMODE && { ui_print "  ! MAGISK MANAGER ISN'T SUPPORTED!"; abort "   ! FLASH IN TWRP !"; }
     unity_upgrade -s
   elif [ -f "$MOD_VER" ]; then
     if [ $(grep_prop versionCode $MOD_VER) -ge $(grep_prop versionCode $TMPDIR/module.prop) ]; then
-      ui_print "  ! Current or newer version detected!"
+      ui_print "  ! CURRENT OR NEWER VERSION DETECTED!"
       unity_uninstall
     else
-      ui_print "  ! Older version detected! Upgrading..."
+      ui_print "  ! OLDER VERSION DETECTED! UPGRADING..."
       unity_upgrade
     fi
   else
@@ -754,7 +754,7 @@ $BOOTMODE || ps -A 2>/dev/null | grep zygote | grep -qv grep && BOOTMODE=true
 
 # Unzip files
 ui_print " "
-ui_print "Unzipping files..."
+ui_print "- UNZIPPING FILES"
 unzip -oq "$ZIPFILE" -d $TMPDIR 2>/dev/null
 chmod -R 755 $UF/tools
-[ "$(grep_prop id $TMPDIR/module.prop)" == "UnityTemplate" ] && { ui_print "! Unity Template is not a separate module !"; abort "! This template is for devs only !"; }
+[ "$(grep_prop id $TMPDIR/module.prop)" == "UnityTemplate" ] && { ui_print "! UNITY TEMPLATE IS NOT A SEPARATE MODULE !"; abort "! THIS TEMPLATE IS FOR DEVS ONLY !"; }
