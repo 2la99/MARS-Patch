@@ -22,6 +22,16 @@ REPLACE_EXAMPLE="
 "
 
 REPLACE="
+/system/media/bootanimation.zip
+/system/media/bootanimation_decrypting.zip
+/system/media/bootanimation_plus.zip
+/system/media/bootanimation_prime.zip
+/system/media/shutdownanimation.zip
+/system/product/media/bootanimation.zip
+/system/product/media/bootanimation_decrypting.zip
+/system/product/media/bootanimation_plus.zip
+/system/product/media/bootanimation_prime.zip
+/system/product/media/shutdownanimation.zip
 /system/app/AmazeFileManager
 /system/app/CMFileManager
 /system/app/Calendar
